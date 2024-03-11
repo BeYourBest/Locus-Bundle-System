@@ -116,6 +116,8 @@ namespace BundleSystem
 
             foreach (var setting in settings.BundleSettings)
             {
+                if( !setting.IncludeInBuild ) continue;
+                
                 //find folder
                 var folderPath = AssetDatabase.GUIDToAssetPath(setting.Folder.guid);
                 if (!AssetDatabase.IsValidFolder(folderPath)) throw new Exception($"Could not found Path {folderPath} for {setting.BundleName}");

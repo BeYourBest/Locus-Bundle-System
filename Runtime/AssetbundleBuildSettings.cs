@@ -138,9 +138,11 @@ namespace BundleSystem
     {
         [Tooltip("AssetBundle Name")]
         public string BundleName;
+        public FolderReference Folder;
+        [Tooltip("If unticked, this bundle will be ignored in build process.")]
+        public bool IncludeInBuild = true;
         [Tooltip("Should this bundle included in player?")]
         public bool IncludedInPlayer = false;
-        public FolderReference Folder;
         [Tooltip("Should include subfolder?")]
         public bool IncludeSubfolder = false;
         [Tooltip("Works only for remote bundle, true for LMZA, false for LZ4")]
