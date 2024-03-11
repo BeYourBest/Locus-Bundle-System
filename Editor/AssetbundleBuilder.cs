@@ -116,7 +116,11 @@ namespace BundleSystem
 
             foreach (var setting in settings.BundleSettings)
             {
-                if( !setting.IncludeInBuild ) continue;
+                if( !setting.IncludeInBuild ) 
+                {
+                    Debug.Log($"Skipping excluded bundle '{setting.BundleName}'");
+                    continue;
+                } 
                 
                 //find folder
                 var folderPath = AssetDatabase.GUIDToAssetPath(setting.Folder.guid);
