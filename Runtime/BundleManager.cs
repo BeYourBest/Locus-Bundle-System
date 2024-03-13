@@ -50,6 +50,7 @@ namespace BundleSystem
         public static string BuildTarget { get; private set; }
         public static string LocalURL { get; private set; }
         public static string RemoteURL { get; private set; }
+        public static string AccessToken { get; private set; }
         public static string GlobalBundleHash { get; private set; }
         internal static int UnityMainThreadId { get; private set; }
 
@@ -71,6 +72,7 @@ namespace BundleSystem
             UseAssetDatabase = true;
             LocalURL = default;
             RemoteURL = default;
+            AccessToken = default;
             GlobalBundleHash = default;
             AutoReloadBundle = true;
             s_LocalBundles.Clear();
@@ -318,7 +320,8 @@ namespace BundleSystem
             }
 #endif
 
-            var manifestReq = UnityWebRequest.Get(Utility.CombinePath(RemoteURL, AssetbundleBuildSettings.ManifestFileName).Replace('\\', '/'));
+            //BYB: Added token
+            var manifestReq = UnityWebRequest.Get(Utility.CombinePath(RemoteURL, AssetbundleBuildSettings.ManifestFileName, AccessToken).Replace('\\', '/'));
             yield return manifestReq.SendWebRequest();
 
             if(result.IsCancelled)
@@ -426,7 +429,8 @@ namespace BundleSystem
                 var isCached = Caching.IsVersionCached(bundleInfo.AsCached);
                 result.SetCachedBundle(isCached);
 
-                var loadURL = islocalBundle ? Utility.CombinePath(LocalURL, bundleInfo.BundleName) : Utility.CombinePath(RemoteURL, bundleInfo.BundleName);
+                //BYB: Added token
+                var loadURL = islocalBundle ? Utility.CombinePath(LocalURL, bundleInfo.BundleName) : Utility.CombinePath(RemoteURL, bundleInfo.BundleName, AccessToken);
                 if (LogMessages) Debug.Log($"Loading Bundle Name : {bundleInfo.BundleName}, loadURL {loadURL}, isLocalBundle : {islocalBundle}, isCached {isCached}");
                 LoadedBundle previousBundle;
 

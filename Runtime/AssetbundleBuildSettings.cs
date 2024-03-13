@@ -111,6 +111,9 @@ namespace BundleSystem
         [Tooltip("Remote URL for downloading remote bundles")]
         public string RemoteURL = "http://localhost/";
 
+        [Tooltip("Security Key for download URL (e.g. ?access_token=xxxxxx)")]
+        public string AccessToken = "";
+
         [Tooltip("Use built asset bundles even in editor")]
         public bool EmulateInEditor = false;
 
@@ -139,8 +142,8 @@ namespace BundleSystem
         [Tooltip("AssetBundle Name")]
         public string BundleName;
         public FolderReference Folder;
-        [Tooltip("If unticked, this bundle will be ignored in build process.")]
-        public bool IncludeInBuild = true;
+        // [Tooltip("If unticked, this bundle will be ignored in build process.")]
+        // public bool IncludeInBuild = true;
         [Tooltip("Should this bundle included in player?")]
         public bool IncludedInPlayer = false;
         [Tooltip("Should include subfolder?")]
