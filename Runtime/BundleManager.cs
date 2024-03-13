@@ -324,7 +324,8 @@ namespace BundleSystem
 #endif
 
             //BYB: Added token
-            var manifestReq = UnityWebRequest.Get(Utility.CombinePath(RemoteURL, AssetbundleBuildSettings.ManifestFileName, AccessToken).Replace('\\', '/'));
+            string manUrl = Utility.CombinePath(RemoteURL, AssetbundleBuildSettings.ManifestFileName).Replace('\\', '/') + AccessToken;
+            var manifestReq = UnityWebRequest.Get(manUrl);
             yield return manifestReq.SendWebRequest();
 
             if(result.IsCancelled)
@@ -434,7 +435,7 @@ namespace BundleSystem
                 result.SetCachedBundle(isCached);
 
                 //BYB: Added token
-                var loadURL = islocalBundle ? Utility.CombinePath(LocalURL, bundleInfo.BundleName) : Utility.CombinePath(RemoteURL, bundleInfo.BundleName, AccessToken);
+                var loadURL = islocalBundle ? Utility.CombinePath(LocalURL, bundleInfo.BundleName) : Utility.CombinePath(RemoteURL, bundleInfo.BundleName) + AccessToken;
                 if (LogMessages) Debug.Log($"Loading Bundle Name : {bundleInfo.BundleName}, loadURL {loadURL}, isLocalBundle : {islocalBundle}, isCached {isCached}");
                 LoadedBundle previousBundle;
 
