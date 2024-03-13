@@ -54,6 +54,7 @@ namespace BundleSystem
         /// </summary>
         public long BuildTime;
         public string RemoteURL;
+        public string AccessToken;
 
         [SerializeField]
         string m_GlobalHash;

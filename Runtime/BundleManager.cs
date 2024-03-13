@@ -258,6 +258,7 @@ namespace BundleSystem
             
             BuildTarget = localManifest.BuildTarget;
             RemoteURL = Utility.CombinePath(localManifest.RemoteURL, BuildTarget);
+            AccessToken = localManifest.AccessToken;
 
 #if UNITY_EDITOR
             if (s_EditorBuildSettings.EmulateWithoutRemoteURL)

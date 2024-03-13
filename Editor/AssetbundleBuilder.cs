@@ -195,12 +195,12 @@ namespace BundleSystem
                 switch(buildType)
                 {
                     case BuildType.Local:
-                        WriteManifestFile(outputPath, results, buildTarget, settings.RemoteURL);
+                        WriteManifestFile(outputPath, results, buildTarget, settings.RemoteURL, settings.AccessToken);
                         WriteLogFile(outputPath, results);
                         if(!Application.isBatchMode) EditorUtility.DisplayDialog("Build Succeeded!", "Local bundle build succeeded!", "Confirm");
                         break;
                     case BuildType.Remote:
-                        WriteManifestFile(outputPath, results, buildTarget, settings.RemoteURL);
+                        WriteManifestFile(outputPath, results, buildTarget, settings.RemoteURL, settings.AccessToken);
                         WriteLogFile(outputPath, results);
                         var linkPath = TypeLinkerGenerator.Generate(settings, results);
                         if (!Application.isBatchMode) EditorUtility.DisplayDialog("Build Succeeded!", $"Remote bundle build succeeded, \n {linkPath} updated!", "Confirm");
@@ -278,7 +278,7 @@ namespace BundleSystem
         /// <summary>
         /// write manifest into target path.
         /// </summary>
-        static void WriteManifestFile(string path, IBundleBuildResults bundleResults, BuildTarget target, string remoteURL)
+        static void WriteManifestFile(string path, IBundleBuildResults bundleResults, BuildTarget target, string remoteURL, string AccessToken)
         {
             var manifest = new AssetbundleBuildManifest();
             manifest.BuildTarget = target.ToString();
@@ -302,6 +302,8 @@ namespace BundleSystem
             manifest.GlobalHash = Hash128.Compute(manifestString);
             manifest.BuildTime = DateTime.UtcNow.Ticks;
             manifest.RemoteURL = remoteURL;
+            manifest.AccessToken = AccessToken;
+
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
             File.WriteAllText(Utility.CombinePath(path, AssetbundleBuildSettings.ManifestFileName), JsonUtility.ToJson(manifest, true));
         }
