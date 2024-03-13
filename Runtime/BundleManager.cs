@@ -164,6 +164,7 @@ namespace BundleSystem
 
             if(!Utility.CheckRequestSuccess(manifestReq))
             {
+                if(LogMessages) Debug.Log($"Failed to get local manifest : {LocalURL}");
                 result.Done(BundleErrorCode.NetworkError);
                 yield break;
             }
@@ -222,6 +223,7 @@ namespace BundleSystem
                 }
                 else
                 {
+                    if(LogMessages) Debug.Log($"Failed to get local bundle : {loadPath}");
                     result.Done(BundleErrorCode.NetworkError);
                     yield break;
                 }
@@ -333,6 +335,7 @@ namespace BundleSystem
 
             if(!Utility.CheckRequestSuccess(manifestReq))
             {
+                if(LogMessages) Debug.Log($"Failed to get remote manifest : {RemoteURL}");
                 result.Done(BundleErrorCode.NetworkError);
                 yield break;
             }
@@ -458,6 +461,7 @@ namespace BundleSystem
 
                     if(!Utility.CheckRequestSuccess(bundleReq))
                     {
+                        if(LogMessages) Debug.Log($"Failed to get remote bundle : {loadURL}");
                         result.Done(BundleErrorCode.NetworkError);
                         yield break;
                     }

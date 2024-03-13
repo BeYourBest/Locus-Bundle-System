@@ -62,10 +62,9 @@ namespace BundleSystem
             using (FtpWebResponse resp = (FtpWebResponse)req.GetResponse())
             {
                 Debug.Log($"Got upload web response, status: {resp.StatusCode}");
-                if (resp.StatusCode != FtpStatusCode.ClosingControl)
+                if (resp.StatusCode != FtpStatusCode.ClosingControl && resp.StatusCode != FtpStatusCode.ClosingData)
                 {
-                    // BYB: Ignoring errors to bypass specific issues
-                    //throw new System.Exception($"File Upload Failed to {path}, Code : {resp.StatusCode}");
+                    throw new System.Exception($"File Upload Failed to {path}, Code : {resp.StatusCode}");
                 }
             }
         }
